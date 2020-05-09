@@ -4,7 +4,7 @@ from .. import db
 from ..models import Blog,User,Comments
 from flask_login import login_required,current_user
 from ..request import get_quotes
-from .forms import Blogform,UpdateForm
+from .forms import Blogform,UpdateForm,CommentForm
 
 @main.route('/')
 def index():
@@ -65,3 +65,17 @@ def update_profile(uname):
     
     title = 'Update profile'
     return render_template('profile/update.html',update=update,title=title)
+
+@main.route('/blog/<int:id>',methods=["GET","POST"])
+@login_required
+def comment(id):
+    blog = Blog.get_blog(id)
+    comment_form = CommentForm()
+
+    if comment_form.validate_on_submit():
+        comment = comment_form.comments.data
+        new_comment = Comments(comment=comment,review=blog,user=current_user)
+        new_comment.save_comment()
+
+
+    return render_template('blog.html',comment_form=comment_form,blog=blog)

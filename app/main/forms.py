@@ -13,3 +13,7 @@ class UpdateForm(FlaskForm):
     last_name = StringField('Your last name')
     bio = TextAreaField('Tell us something about you')
     submit = SubmitField('Update bio')
+
+class CommentForm(FlaskForm):
+    comments = TextAreaField('Leave a comment below',validators=[Required()])
+    submit = SubmitField('Submit your comment')
