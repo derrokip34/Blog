@@ -9,6 +9,10 @@
             <div class="card">
                 <div class="card-body">
                     <h1>New Blog</h1>
+                    <p>Here is a quote to inspire you</p>
+                    <blockquote style="font-style: italic;">{{quote.quote}}</blockquote>
+                    <p>Quote by <span style="font-style: italic;">{{quote.author}}</span></p>
+                    <hr>
                     {{wtf.quick_form(blog_form)}}
                 </div>
             </div>

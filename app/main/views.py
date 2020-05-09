@@ -26,7 +26,9 @@ def new_blog():
         new_blog.save_blog()
 
         return redirect(url_for('.index'))
+
+    quote = get_quotes()
         
     title = 'New Blog post'
 
-    return render_template('new_blog.html',title=title,blog_form=blog_form)
+    return render_template('new_blog.html',title=title,blog_form=blog_form,quote=quote)
