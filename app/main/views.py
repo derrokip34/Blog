@@ -4,7 +4,7 @@ from .. import db
 from ..models import Blog,User,Comments
 from flask_login import login_required,current_user
 from ..request import get_quotes
-from .forms import Blogform
+from .forms import Blogform,UpdateForm
 
 @main.route('/')
 def index():
@@ -32,3 +32,36 @@ def new_blog():
     title = 'New Blog post'
 
     return render_template('new_blog.html',title=title,blog_form=blog_form,quote=quote)
+
+@main.route('/user/<uname>')
+@login_required
+def profile(uname):
+    user = User.query.filter_by(username=uname).first()
+
+    if user is None:
+        abort(404)
+
+    title = 'Profile information'
+    return render_template('profile/profile.html',title=title)
+
+@main.route('/user/<uname>/update',methods=["GET","POST"])
+@login_required
+def update_profile(uname):
+    user = User.query.user = User.query.filter_by(username = uname).first()
+    if user is None:
+        abort(404)
+
+    update = UpdateForm()
+
+    if update.validate_on_submit():
+        user.bio = update.bio.data
+        user.first_name = update.first_name.data
+        user.last_name = update.last_name.data
+
+        db.session.add(user)
+        db.session.commit()
+
+        return redirect(url_for('.profile',uname=user.username))
+    
+    title = 'Update profile'
+    return render_template('profile/update.html',update=update,title=title)
