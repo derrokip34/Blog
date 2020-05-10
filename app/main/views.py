@@ -117,3 +117,13 @@ def reset_token(token):
         return redirect(url_for('auth.login'))
 
     return render_template('reset.html',reset_form=reset_form)
+
+@main.route('/comment/<int:id>/delete',methods=["GET","POST"])
+@login_required
+def delete_comment(id):
+    comment = Comments.query.filter_by(id=id).first()
+    
+    db.session.delete(comment)
+    db.session.commit()
+
+    return redirect(url_for('.blog',id=comment.id))
