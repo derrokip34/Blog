@@ -39,7 +39,7 @@ This is an app where one can sign up and post blogs from different categories. A
 - `export MAIL_PASSWORD={your email password}`
 - `export SECRET_KEY={your secret key}`
 
-`python3.6 manage.py server`
+- `python3.6 manage.py server`
 
 #### Change the config_name in manage.py file to development
 `app = create_app('config_name')`
