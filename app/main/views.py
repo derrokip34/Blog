@@ -40,12 +40,13 @@ def new_blog():
 @login_required
 def profile(uname):
     user = User.query.filter_by(username=uname).first()
+    blogs = Blog.get_users_blogs(uname)
 
     if user is None:
         abort(404)
 
     title = 'Profile information'
-    return render_template('profile/profile.html',title=title)
+    return render_template('profile/profile.html',title=title,user=user,blogs=blogs)
 
 @main.route('/user/<uname>/update',methods=["GET","POST"])
 @login_required
@@ -64,7 +65,7 @@ def update_profile(uname):
         db.session.add(user)
         db.session.commit()
 
-        return redirect(url_for('.profile',uname=user.username))
+        return redirect(url_for('.profile',uname=user.username,user=user))
     
     title = 'Update profile'
     return render_template('profile/update.html',update=update,title=title)
