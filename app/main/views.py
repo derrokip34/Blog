@@ -10,8 +10,10 @@ from ..email import send_reset_email
 @main.route('/')
 def index():
 
+    blogs = Blog.query.all()
+
     title = 'Welcome'
-    return render_template('index.html',title=title)
+    return render_template('index.html',title=title,blogs=blogs)
 
 @main.route('/new/blog',methods=["GET","POST"])
 @login_required

@@ -3,6 +3,7 @@ from werkzeug.security import generate_password_hash,check_password_hash
 from flask_login import UserMixin
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 from flask import current_app
+from datetime import datetime
 
 class Quote():
 
@@ -66,6 +67,7 @@ class Blog(db.Model):
     blog_title = db.Column(db.String(255))
     blog_content = db.Column(db.String(1000))
     category = db.Column(db.String())
+    posted_on = db.Column(db.DateTime, default=datetime.utcnow)
     user_id = db.Column(db.Integer,db.ForeignKey("users.id"))
     comments = db.relationship('Comments',backref='review',lazy='dynamic')
 
@@ -97,6 +99,7 @@ class Comments(db.Model):
 
     id = db.Column(db.Integer,primary_key=True)
     comment = db.Column(db.String(255))
+    date_posted = db.Column(db.DateTime, default=datetime.utcnow)
     blog = db.Column(db.Integer,db.ForeignKey("blog.id"))
     user_id = db.Column(db.Integer,db.ForeignKey('users.id'))
 

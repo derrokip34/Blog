@@ -18,9 +18,43 @@
         </div>
     </div>
     {% if current_user.is_authenticated %}
-    <!--Blogs Posted-->
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-8">
+            {% for blog in blogs %}
+            <hr>
+            <div class="card">
+                <div class="card-header"><a href="/user/{{blog.user.username}}">{{blog.user.username|capitalize}}</a></div>
+                <div class="card-body">
+                    <h3 class="card-title"><a href="/blog/{{blog.id}}">{{blog.blog_title}}</a></h3>
+                    <p class="card-text">{{blog.blog_content}}</p>
+                    <div class="card-footer">Posted on {{blog.posted_on.strftime('%Y-%m-%d')}}</div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
     {% else %}
-    <!---->
+    <div>
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-10">
+                <div class="card text-center">
+                    <div class="card-header">HERE'S WHY YOU SHOULD START BLOGGING TODAY</div>
+                    <hr>
+                    <div class="card-body">
+                        <h3 class="card-title">Business</h3>
+                        <p class="card-text">There is some debate out there as to whether blogging is still relevant in today’s social media marketing environment.</p>
+                        <p class="card-text">Regardless if you are a small business, or a multinational company, blogging is integral to your online content marketing strategy.</p>
+                        <h3 class="card-title">Education</h3>
+                        <p class="card-text">Teachers can use blogs to publish assignments, resources, and keep students and even parents up to date on class events, due dates, and content being covered. Teachers can also use blogs to help students' master content and improve their writing skills.</p>
+                        <h3 class="card-title">Cooking</h3>
+                        <p class="card-text">Focused blog writing offers many benefits for restaurants and bars including publicity, increased authority and better SEO results. A blog can tell customers about events and menu changes while providing a human connection.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     {% endif %}
 </div>
 {% endblock %}
