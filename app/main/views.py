@@ -4,7 +4,8 @@ from .. import db
 from ..models import Blog,User,Comments
 from flask_login import login_required,current_user
 from ..request import get_quotes
-from .forms import Blogform,UpdateForm,CommentForm
+from .forms import Blogform,UpdateForm,CommentForm,ResetPassword,ResetPasswordRequest
+from ..email import send_reset_email
 
 @main.route('/')
 def index():
@@ -79,3 +80,34 @@ def comment(id):
 
 
     return render_template('blog.html',comment_form=comment_form,blog=blog)
+
+@main.route('/reset_password',methods=["GET","POST"])
+def reset_request():
+    if current_user.is_authenticated:
+        return redirect(url_for('.index'))
+
+    request_form = ResetPasswordRequest()
+    if request_form.validate_on_submit():
+        user = User.query.filter_by(email=request_form.email.data).first()
+        send_reset_email(user)
+
+        return redirect(url_for('auth.login'))
+
+    return render_template('reset_request.html',request_form=request_form)
+
+@main.route('/reset_password/<token>',methods=["GET","POST"])
+def reset_token(token):
+    if current_user.is_authenticated:
+        return redirect(url_for('.index'))
+    user = User.verify_token(token)
+    if user is None:
+        return redirect(url_for('reset_request'))
+
+    reset_form = ResetPassword()
+    if reset_form.validate_on_submit():
+        new_password = reset_form.new_password.data
+        user.password = new_password
+        db.session.commit()
+        return redirect(url_for('auth.login'))
+
+    return render_template('reset.html',reset_form=reset_form)

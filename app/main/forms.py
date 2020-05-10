@@ -17,3 +17,12 @@ class UpdateForm(FlaskForm):
 class CommentForm(FlaskForm):
     comments = TextAreaField('Leave a comment below',validators=[Required()])
     submit = SubmitField('Submit your comment')
+
+class ResetPasswordRequest(FlaskForm):
+    email = StringField('Your email address to reset your password',validators=[Required()])
+    submit = SubmitField('Submit')
+
+class ResetPassword(FlaskForm):
+    new_password = PasswordField('Your new password',[Required(),EqualTo('confirm',message='Passwords must match')])
+    confirm = PasswordField('Confirm your new password',validators=[Required()])
+    submit = SubmitField('Submit your new passord')

@@ -1,6 +1,8 @@
 from . import db,login_manager
 from werkzeug.security import generate_password_hash,check_password_hash
 from flask_login import UserMixin
+from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
+from flask import current_app
 
 class Quote():
 
@@ -38,6 +40,22 @@ class User(UserMixin,db.Model):
     def verify_password(self,password):
         return check_password_hash(self.pass_secure,password)
 
+    def get_token(self, expiration=1800):
+        s = Serializer(current_app.config['SECRET_KEY'],expiration)
+        return s.dumps({'user':self.id}).decode('utf-8')
+
+    @staticmethod
+    def verify_token(token):
+        s = Serializer(current_app.config['SECRET_KEY'])
+        try:
+            data = s.loads(token)
+        except:
+            return None
+        id = data.get('user')
+        if id:
+            return User.query.get(id)
+        return None
+
     def __repr__(self):
         return f'User {self.username}'
 
@@ -55,6 +73,22 @@ class Blog(db.Model):
         db.session.add(self)
         db.session.commit()
 
+    @classmethod
+    def get_blog(cls,id):
+        blog = Blog.query.filter_by(id=id).first()
+        return blog
+
+    @classmethod
+    def get_all_blogs():
+        blog = Blog.query.all()
+        return blogs
+
+    @classmethod
+    def get_users_blogs(cls,uname):
+        user = User.query.filter_by(username=uname).first()
+        user_blogs = Blog.query.filter_by(user_id=user.id).all()
+        return user_blogs
+
     def __repr__(self):
         return f'Blog {self.blog_title}'
 
@@ -65,3 +99,7 @@ class Comments(db.Model):
     comment = db.Column(db.String(255))
     blog = db.Column(db.Integer,db.ForeignKey("blog.id"))
     user_id = db.Column(db.Integer,db.ForeignKey('users.id'))
+
+    def save_comment(self):
+        db.session.add(self)
+        db.session.commit()
