@@ -23,6 +23,7 @@
         <div class="col-md-1"></div>
         <div class="col-md-8"><br>
             <h2>HERE ARE SOME POSTS FROM OTHER USERS <i class="fas fa-user-friends"></i></h2>
+            {% if blogs %}
             {% for blog in blogs %}
             <hr>
             <div class="card">
@@ -34,6 +35,9 @@
                 <div class="card-footer">Posted on {{blog.posted_on.strftime('%Y-%m-%d')}}</div>
             </div>
             {% endfor %}
+            {% else %}
+            <h2>NO POSTS YET</h2>
+            {% endif %}
         </div>
     </div>
     {% else %}
