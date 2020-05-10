@@ -161,3 +161,10 @@ def update_blog(id):
         blog_form.content.data = blog.blog_content
         blog_form.category.data = blog.category
     return render_template('new_blog.html',blog_form=blog_form,quote=quote)
+
+@main.route('/blog/posts')
+def blogs():
+    blogs = Blog.query.all()
+
+    title = 'Blogs posted'
+    return render_template('blogs.html',title=title,blogs=blogs)
