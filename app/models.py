@@ -106,3 +106,8 @@ class Comments(db.Model):
     def save_comment(self):
         db.session.add(self)
         db.session.commit()
+
+    @classmethod
+    def get_comments(cls,blog):
+        comments = Comments.query.filter_by(blog=blog.id).all()
+        return comments

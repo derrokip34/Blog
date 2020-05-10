@@ -13,13 +13,25 @@
                     <p class="card-text">Posted by <a href="/user/{{blog.user.username}}">{{blog.user.username}}</a></p>
                 </div>
                 <div class="card-footer">Posted on {{blog.posted_on.strftime('%Y-%m-%d')}}</div>
+            </div><br>
+            <div class="col-md-10">
+                {{wtf.quick_form(comment_form)}}
             </div>
         </div>
-    </div><br>
-    <div class="row">
         <div class="col-md-6">
-            {{wtf.quick_form(comment_form)}}
+            <h3>COMMENTS ({{comments|count}})</h3>
+            {% for comment in comments %}
+            <div class="card">
+                <div class="card-header">{{comment.user.username}}</div>
+                <div class="card-body">
+                    <p class="card-text">{{comment.comment}}</p>
+                </div>
+                <div class="card-footer">
+                    <a class="btn btn-danger"><i class="far fa-trash-alt"></i></a>
+                </div>
+            </div><br>
+            {% endfor %}
         </div>
-    </div>
+    </div><br>
 </div>
 {% endblock %}

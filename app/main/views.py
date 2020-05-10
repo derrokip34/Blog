@@ -73,6 +73,7 @@ def update_profile(uname):
 @login_required
 def blog(id):
     blog = Blog.get_blog(id)
+    comments = Comments.get_comments(blog)
     comment_form = CommentForm()
 
     if comment_form.validate_on_submit():
@@ -83,7 +84,7 @@ def blog(id):
         return redirect(url_for('main.blog',id=blog.id))
 
 
-    return render_template('blog.html',comment_form=comment_form,blog=blog)
+    return render_template('blog.html',comment_form=comment_form,blog=blog,comments=comments)
 
 @main.route('/reset_password',methods=["GET","POST"])
 def reset_request():
