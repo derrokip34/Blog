@@ -122,8 +122,19 @@ def reset_token(token):
 @login_required
 def delete_comment(id):
     comment = Comments.query.filter_by(id=id).first()
-    
+
     db.session.delete(comment)
     db.session.commit()
 
     return redirect(url_for('.blog',id=comment.id))
+
+@main.route('/blog/<int:id>/delete',methods=["GET","POST"])
+@login_required
+def delete_blog(id):
+    blog = Blog.query.get(id)
+    if blog.user != current_user:
+        abort(403)
+    db.session.delete(blog)
+    db.session.commit()
+
+    return redirect(url_for('.index'))

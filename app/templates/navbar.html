@@ -19,7 +19,7 @@
         <ul class="navbar-nav ml-auto nav-flex-icons">
             {% if current_user.is_authenticated %}
             <li class="nav-item">
-              <a class="nav-link" href=""><i class="fas fa-user-check"></i> {{current_user.username}}</a>
+              <a class="nav-link" href="{{url_for('main.profile',uname=current_user.username)}}"><i class="fas fa-user-check"></i> {{current_user.username}}</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="{{url_for('auth.logout')}}"><i class="fas fa-sign-out-alt"></i> Sign out</a>

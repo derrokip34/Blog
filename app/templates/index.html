@@ -2,6 +2,7 @@
 
 {% block content %}
 <div class="container-fluid">
+    <hr>
     <div class="card card-image" style="background-image: url('https://mdbootstrap.com/img/Photos/Others/forest2.jpg');">
         <div class="text-white text-center rgba-stylish-strong py-5 px-4">
             <div class="py-5">
@@ -20,7 +21,8 @@
     {% if current_user.is_authenticated %}
     <div class="row">
         <div class="col-md-1"></div>
-        <div class="col-md-8">
+        <div class="col-md-8"><br>
+            <h2>HERE ARE SOME POSTS FROM OTHER USERS <i class="fas fa-user-friends"></i></h2>
             {% for blog in blogs %}
             <hr>
             <div class="card">
@@ -56,5 +58,5 @@
         </div>
     </div>
     {% endif %}
-</div>
+</div><br><br><br><br><br><br>
 {% endblock %}
