@@ -55,13 +55,17 @@ This is an app where one can sign up and post blogs from different categories. A
 ## [BLOG Live site](https://blog-34.herokuapp.com/)
 
 ## BDD
-| Behaviour             |                Input                |                                                                       Output |
-| :-------------------- | :---------------------------------: | ---------------------------------------------------------------------------: |
-| Load the page         |          **On page load**           |                               Get all posts, Select between signup and login |
-| Select SignUp         | **Email**,**Username**,**Password** |                                                            Redirect to login |
-| Select Login          |    **Username** and **password**    | Redirect to page with app posts based on categories and commenting section |
-| Select comment button |             **Comment**             |                                             Form that you input your comment |
-| Click on submit       |                                     |       Redirect to all comments tamplate with your comment and other comments |
+### Input required
+- User's details when signing up, logging in, or updating their profile
+- Posts
+
+### Behaviour
+- The app will store a user's details in a database whe signing in and fetch them when logging in
+- Posts posted will also be stored in a database
+
+### Output
+- The app will display a all posts on the home page and the posts page
+- The app will also display a user's profile info on their profile page
 
 ## TECHNOLOGIES USED
 - HTML
@@ -78,4 +82,4 @@ There are no known bugs at the moment
 In case of any bugs contact me at derrokip34@gmail.com
 
 ## LICENSE & COPYRIGHT INFORMATION
-[MIT License](https://github.com/derrokip34/Pitch/blob/master/license.md)
+[MIT License](https://github.com/derrokip34/Blog/blob/master/license.md)
