@@ -71,7 +71,7 @@ def update_profile(uname):
 
 @main.route('/blog/<int:id>',methods=["GET","POST"])
 @login_required
-def comment(id):
+def blog(id):
     blog = Blog.get_blog(id)
     comment_form = CommentForm()
 
@@ -79,6 +79,8 @@ def comment(id):
         comment = comment_form.comments.data
         new_comment = Comments(comment=comment,review=blog,user=current_user)
         new_comment.save_comment()
+
+        return redirect(url_for('main.blog',id=blog.id))
 
 
     return render_template('blog.html',comment_form=comment_form,blog=blog)
