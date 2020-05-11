@@ -109,5 +109,5 @@ class Comments(db.Model):
 
     @classmethod
     def get_comments(cls,blog):
-        comments = Comments.query.filter_by(blog=blog).all()
+        comments = Comments.query.filter_by(blog=blog.id).all()
         return comments

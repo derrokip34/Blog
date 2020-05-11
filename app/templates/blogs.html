@@ -12,7 +12,9 @@
                     <h3 class="card-title"><a href="/blog/{{blog.id}}">{{blog.blog_title}}</a></h3>
                     <p class="card-text">{{blog.blog_content}}</p>
                 </div>
-                <div class="card-footer">Posted on {{blog.posted_on.strftime('%Y-%m-%d')}}</div>
+                <div class="card-footer">
+                    <p>Posted on {{blog.posted_on.strftime('%Y-%m-%d')}}</p>
+                </div>
             </div>
         </div>
             {% endfor %}
