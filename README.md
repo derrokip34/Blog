@@ -35,11 +35,11 @@ This is an app where one can sign up and post blogs from different categories. A
 `pip install -r requirements.txt`
 
 #### Edit your start.sh file with your MAIL_USERNAME,MAIL_PASSWORD & SECRET_KEY as follows
-`export MAIL_USERNAME={your email address}`
-`export MAIL_PASSWORD={your email password}`
-`export SECRET_KEY={your secret key}`
+- `export MAIL_USERNAME={your email address}`
+- `export MAIL_PASSWORD={your email password}`
+- `export SECRET_KEY={your secret key}`
 
-`python3.6 manage.py server`
+- `python3.6 manage.py server`
 
 #### Change the config_name in manage.py file to development
 `app = create_app('config_name')`
