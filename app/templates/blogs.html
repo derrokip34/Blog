@@ -2,22 +2,16 @@
 
 {% block content %}
 <div class="container">
-{% for blog in blogs %}
-    <hr>
-    <div class="row">
-        <div class="col-md-6">
-            <div class="card">
-                <div class="card-header">Posted by <a href="/user/{{blog.user.username}}">{{blog.user.username}}</a></div>
-                <div class="card-body">
-                    <h3 class="card-title"><a href="/blog/{{blog.id}}">{{blog.blog_title}}</a></h3>
-                    <p class="card-text">{{blog.blog_content}}</p>
-                </div>
-                <div class="card-footer">
-                    <p>Posted on {{blog.posted_on.strftime('%Y-%m-%d')}}</p>
-                </div>
+    {% for blog in blogs %}
+        <hr>
+        <div class="card">
+            <div class="card-header"><a href="/user/{{blog.user.username}}">{{blog.user.username|capitalize}}</a></div>
+            <div class="card-body">
+                <h3 class="card-title"><a href="/blog/{{blog.id}}">{{blog.blog_title}}</a></h3>
+                <p class="card-text">{{blog.blog_content}}</p>
             </div>
+            <div class="card-footer">Posted on {{blog.posted_on.strftime('%Y-%m-%d')}}</div>
         </div>
-            {% endfor %}
-    </div>
+    {% endfor %}
 </div>
 {% endblock %}
